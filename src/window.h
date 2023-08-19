@@ -2,17 +2,20 @@
 #define VECTOR_SANDBOX_WINDOW_H
 
 #include <SDL2/SDL.h>
-#include "vector.cpp"
+#include "double_list.cpp"
 #include "entity.h"
+#include "image_button.cpp"
 
 
 class Window {
 
 	private:
+		static const int buttonSize = 64;
 
 	public:
 		SDL_Window *window;
 		DoubleLinkedList<class Entity> entities;
+		DoubleLinkedList<class ImageButton> buttons;
 		SDL_Renderer *renderer;
 
 		Window(const char *name, int width, int height);
@@ -22,7 +25,10 @@ class Window {
 		void drawLine(int x1, int y1, int x2 = 0, int y2 = 0);
 		void drawPixel(int x = 0, int y = 0);
 		void setColor(int r = 0, int g = 0, int b = 0, int a = 0xff);
+		void createButton(const char *name, const char *selected);
 		void addEntity(Entity*);
+		void addButton(ImageButton*);
+		void mouseMoved(int, int);
 		void frame();
 
 		~Window();

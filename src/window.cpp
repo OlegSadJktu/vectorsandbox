@@ -43,8 +43,35 @@ void Window::drawPixel(int x, int y) {
 	SDL_RenderDrawPoint(renderer, x, y);
 }
 
+void Window::createButton(const char *name, const char *selected) {
+	ImageButton *button = new ImageButton(renderer, name, buttonSize, buttonSize);
+	button->addSelected(selected);
+	button->move(buttons.size() * buttonSize, 0);
+	addButton(button);
+}
+
 void Window::addEntity(Entity *ent) {
 	entities.addToEnd(ent);
+}
+
+void Window::addButton(ImageButton *but) {
+	buttons.addToEnd(but);
+}
+
+void Window::mouseMoved(int curx, int cury) {
+	Iterator<ImageButton> *iter = buttons.iterator();
+	ImageButton *but;
+	bool intersect;
+	while (iter->hasNext()) {
+		but = iter->getNext();
+		intersect = but->checkCursor(curx, cury);
+		if (intersect) break;
+	}
+	delete iter;
+	if (intersect) {
+		frame();
+	}
+
 }
 
 void Window::frame() {
@@ -56,13 +83,20 @@ void Window::frame() {
 		ent->show(this);
 	}
 	delete iter;
-	SDL_Rect img_rect;
-	img_rect.h = 64;
-	img_rect.w = 64;
-	img_rect.x = 0;
-	img_rect.y = 0;
-	SDL_Texture *img = IMG_LoadTexture(renderer, IMG_NAME);
-	SDL_RenderCopy(renderer, img, 0, &img_rect);
+	Iterator<ImageButton> *but_iter = buttons.iterator();
+	ImageButton *but;
+	while (iter->hasNext()) {
+		but = but_iter->getNext();
+		but->show();
+	}
+
+	/* SDL_Rect img_rect; */
+	/* img_rect.h = 64; */
+	/* img_rect.w = 64; */
+	/* img_rect.x = 0; */
+	/* img_rect.y = 0; */
+	/* SDL_Texture *img = IMG_LoadTexture(renderer, IMG_NAME); */
+	/* SDL_RenderCopy(renderer, img, 0, &img_rect); */
 	updateRender();
 }
 

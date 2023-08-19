@@ -23,14 +23,21 @@ class DoubleLinkedList {
 		};
 
 		Link *head, *tail;
+		int _size;
 
 	public:
 		DoubleLinkedList() {
 			head = 0;
 			tail = 0;
+			_size = 0;
+		}
+
+		int size() {
+			return _size;
 		}
 
 		void addToEnd(T *data) {
+			_size++;
 			if (head == 0 && tail == 0) {
 				Link *tmp = new Link(0, 0, data);
 				head = tmp;
@@ -43,6 +50,7 @@ class DoubleLinkedList {
 		}
 
 		void addToStart(T *data) {
+			_size++;
 			if (head == 0 && tail == 0) {
 				Link *tmp = new Link(0,0, data);
 				head = tmp;
@@ -55,6 +63,7 @@ class DoubleLinkedList {
 		}
 
 		T *pop() {
+			_size--;
 			if (head == tail) {
 				T *data = tail->data;
 				delete tail;
@@ -71,6 +80,7 @@ class DoubleLinkedList {
 		}
 
 		T *popStart() {
+			_size--;
 			if (head == tail) {
 				T *data = tail->data;
 				delete tail;
@@ -130,7 +140,6 @@ class DoubleLinkedListIterator : public Iterator<T> {
 		}
 
 		~DoubleLinkedListIterator() {
-			delete link;
 		}
 
 };
