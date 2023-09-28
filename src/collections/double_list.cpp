@@ -1,7 +1,7 @@
 #ifndef VECTOR_SANDBOX_VECTOR_H
 #define VECTOR_SANDBOX_VECTOR_H
 
-#include "iterator.cpp"
+#include "iterators/iterator.cpp"
 
 template <typename T>
 class DoubleLinkedListIterator;

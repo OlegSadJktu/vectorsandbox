@@ -2,9 +2,10 @@
 #define VECTOR_SANDBOX_WINDOW_H
 
 #include <SDL2/SDL.h>
-#include "double_list.cpp"
-#include "entity.h"
-#include "image_button.cpp"
+#include "../collections/double_list.cpp"
+#include <entities/entity.h>
+#include <ui/image_button.cpp>
+#include <window/renderer.h>
 
 
 class Window {
@@ -16,7 +17,7 @@ class Window {
 		SDL_Window *window;
 		DoubleLinkedList<class Entity> entities;
 		DoubleLinkedList<class ImageButton> buttons;
-		SDL_Renderer *renderer;
+		Renderer *renderer;
 
 		Window(const char *name, int width, int height);
 		void clear();

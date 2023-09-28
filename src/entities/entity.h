@@ -2,34 +2,27 @@
 #define ENTITY_H
 
 
-#include "window.h"
+#include <window/window.h>
+#include <window/renderer.h>
+#include <math/vector_2.h>
 
-class Window;
+class Renderer;
 
-class Position {
-
-	public:
-		int x, y;
-		Position(int _x = 0, int _y = 0) {
-			x = _x;
-			y = _y;
-		}
-};
 
 class Entity {
 	protected:
-		Position pos;
+		Vector2 pos;
 
 	public: 
 		Entity(int x, int y): pos(x, y) {};
 
-		virtual void show(Window*) = 0;
+		virtual void draw(Renderer*) = 0;
 		virtual ~Entity() {};
 };
 
 class Dot: public Entity {
 
-	void show(Window *window);
+	void draw(Renderer*);
 	~Dot();
 
 };
@@ -46,7 +39,10 @@ class Square : public Entity {
 			rect.w = _width;
 		}
 
-		void show(Window *window);
+		void draw(Renderer *ren) {
+			ren->drawRect(&rect);
+			/* SDL_RenderDrawRect(renderer, &rect); */
+		}
 		
 };
 
